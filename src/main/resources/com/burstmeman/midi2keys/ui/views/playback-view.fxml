@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.burstmeman.midi2keys.ui.controllers.PlaybackController">
+    
+    <!-- Main Content -->
+    <VBox spacing="16">
+        <padding>
+            <Insets topRightBottomLeft="16"/>
+        </padding>
+        
+        <!-- Header -->
+        <Label text="Playback" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        
+        <!-- Status -->
+        <Label fx:id="statusLabel" text="No file selected"/>
+        
+        <!-- Progress -->
+        <VBox spacing="8">
+            <ProgressBar fx:id="progressBar" progress="0" maxWidth="Infinity"/>
+            <HBox spacing="8" alignment="CENTER">
+                <Label fx:id="timeLabel" text="0:00 / 0:00" style="-fx-font-size: 12px;"/>
+                <HBox HBox.hgrow="ALWAYS"/>
+                <Label text="Current Key:" style="-fx-font-size: 12px;"/>
+                <Label fx:id="currentKeyLabel" text="-" 
+                       style="-fx-font-family: monospace; -fx-padding: 4 8; -fx-background-color: derive(-fx-base, 20%); -fx-background-radius: 4;"/>
+            </HBox>
+        </VBox>
+        
+        <!-- Controls -->
+        <HBox fx:id="playbackControls" spacing="12" alignment="CENTER">
+            <Button fx:id="playButton" 
+                    text="▶ Play" 
+                    onAction="#onPlay"
+                    disable="true"/>
+            
+            <Button fx:id="pauseButton" 
+                    text="⏸ Pause" 
+                    onAction="#onPause"
+                    visible="false" managed="false"/>
+            
+            <Button fx:id="stopButton" 
+                    text="⏹ Stop" 
+                    onAction="#onStop"
+                    disable="true"/>
+        </HBox>
+        
+        <!-- Panic Stop Note -->
+        <Label text="Press Ctrl+Shift+Escape to panic stop" style="-fx-font-size: 12px; -fx-text-fill: #ff9800;"/>
+    </VBox>
+    
+    <!-- Countdown Overlay -->
+    <VBox fx:id="countdownOverlay" 
+          alignment="CENTER" 
+          style="-fx-background-color: rgba(0,0,0,0.85);"
+          visible="false" managed="false">
+        <Label fx:id="countdownLabel" text="3" style="-fx-font-size: 96px; -fx-font-weight: 300;"/>
+        <Label text="Get ready..." style="-fx-font-size: 20px;"/>
+    </VBox>
+</StackPane>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.burstmeman.midi2keys.ui.controllers.SettingsController"
+      spacing="24" prefWidth="600" prefHeight="700">
+    
+    <padding>
+        <Insets topRightBottomLeft="24"/>
+    </padding>
+    
+    <!-- Header -->
+    <Label text="Settings" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+        <VBox spacing="24">
+            <padding>
+                <Insets right="16"/>
+            </padding>
+            
+            <!-- Root Directories Section -->
+            <VBox spacing="12">
+                <Label text="Root Directories" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Label text="Configure folders containing your MIDI files" style="-fx-text-fill: gray;"/>
+                
+                <VBox fx:id="rootDirectoriesContainer" spacing="8">
+                    <!-- Dynamic content -->
+                </VBox>
+                
+                <Button fx:id="addDirectoryButton" 
+                        text="+ Add Directory" 
+                        onAction="#onAddDirectory"/>
+            </VBox>
+            
+            <Separator/>
+            
+            <!-- Playback Settings Section -->
+            <VBox spacing="16">
+                <Label text="Playback Settings" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                
+                <!-- Countdown Timer -->
+                <VBox spacing="8">
+                    <HBox spacing="16" alignment="CENTER_LEFT">
+                        <Label text="Countdown before playback:"/>
+                        <Label fx:id="countdownValueLabel" text="3 seconds" style="-fx-text-fill: gray;"/>
+                    </HBox>
+                    <Slider fx:id="countdownSlider" 
+                            min="1" max="10" 
+                            showTickLabels="true"
+                            showTickMarks="true"
+                            majorTickUnit="1"
+                            minorTickCount="0"
+                            snapToTicks="true"
+                            prefWidth="300"/>
+                    <Label text="Time to prepare before MIDI playback starts" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                </VBox>
+            </VBox>
+            
+            <Separator/>
+            
+            <!-- Safety Settings Section -->
+            <VBox spacing="16">
+                <Label text="Safety Settings" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                
+                <!-- Panic Stop Hotkey -->
+                <VBox spacing="8">
+                    <Label text="Panic Stop Hotkey"/>
+                    <TextField fx:id="panicHotkeyField" 
+                               promptText="e.g., Ctrl+Shift+Escape"
+                               prefWidth="250"/>
+                    <Label text="Press this key combination to immediately stop playback and release all keys" 
+                           style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                </VBox>
+                
+                <!-- Test Mode -->
+                <HBox spacing="16" alignment="CENTER_LEFT">
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Test Mode"/>
+                        <Label text="When enabled, keyboard presses are simulated but not actually sent to the system" 
+                               style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                    </VBox>
+                    <CheckBox fx:id="testModeToggle"/>
+                </HBox>
+            </VBox>
+            
+            <Separator/>
+            
+            <!-- About Section -->
+            <VBox spacing="8">
+                <Label text="About" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Label text="Midi2Keys - MIDI to Keyboard Converter"/>
+                <Label text="Version 1.0-SNAPSHOT" style="-fx-text-fill: gray;"/>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+    
+    <!-- Footer Buttons -->
+    <HBox spacing="16" alignment="CENTER_RIGHT">
+        <Button fx:id="closeButton" 
+                text="Cancel" 
+                onAction="#onClose"/>
+        <Button fx:id="saveButton" 
+                text="Save" 
+                onAction="#onSave"
+                defaultButton="true"/>
+    </HBox>
+</VBox>

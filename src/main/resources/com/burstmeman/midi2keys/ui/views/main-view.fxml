@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.burstmeman.midi2keys.ui.controllers.MainController"
+            prefWidth="1280" prefHeight="800">
+
+    <!-- Top: Application Header -->
+    <top>
+        <VBox>
+            <!-- Test Mode Indicator Banner -->
+            <HBox fx:id="testModeIndicator" spacing="8" alignment="CENTER"
+                  visible="false" managed="false" style="-fx-background-color: #ff9800; -fx-padding: 8;">
+                <Label text="⚠ TEST MODE - No actual keystrokes will be sent"/>
+                <Button text="Disable" onAction="#onToggleTestMode"/>
+            </HBox>
+            
+            <!-- Main Header -->
+            <HBox spacing="16" alignment="CENTER_LEFT" style="-fx-padding: 12 24;">
+                <Label text="🎹 Midi2Keys" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+                <HBox HBox.hgrow="ALWAYS"/>
+                <Button text="⚙ Settings" onAction="#onSettingsClicked"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center: Main Content Area -->
+    <center>
+        <SplitPane dividerPositions="0.28, 0.68">
+            <!-- Left: File Browser -->
+            <VBox fx:id="fileBrowserPane" spacing="8" style="-fx-padding: 16;">
+                
+                <!-- Header with Root Directory Selector -->
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <Label text="MIDI Files" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <HBox HBox.hgrow="ALWAYS"/>
+                    <Button text="+" onAction="#onAddRootDirectory"/>
+                </HBox>
+                
+                <!-- Root Directory Combo -->
+                <ComboBox fx:id="rootDirectoryCombo" promptText="Select root directory..." 
+                          maxWidth="Infinity"/>
+                
+                <!-- Search Bar -->
+                <TextField fx:id="searchField" promptText="🔍 Search files..." 
+                           maxWidth="Infinity"/>
+                
+                <!-- Breadcrumb Navigation -->
+                <HBox fx:id="breadcrumbContainer" spacing="4" alignment="CENTER_LEFT">
+                    <Button fx:id="navigateUpButton" text="⬆" 
+                            onAction="#onNavigateUp" disable="true"/>
+                </HBox>
+                
+                <!-- File List -->
+                <ListView fx:id="fileListView" VBox.vgrow="ALWAYS"/>
+                
+                <!-- Empty State (shown when no root directory) -->
+                <VBox fx:id="emptyStateContainer" VBox.vgrow="ALWAYS"
+                      alignment="CENTER" spacing="16" visible="false" managed="false">
+                    <Label text="📂" style="-fx-font-size: 48px;"/>
+                    <Label text="No Root Directory" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <Label text="Add a directory containing your MIDI files to get started"/>
+                    <Button text="+ Add Root Directory" onAction="#onAddRootDirectory"/>
+                </VBox>
+                
+                <!-- Status -->
+                <Label fx:id="fileBrowserStatusLabel" text="0 folders, 0 files" 
+                       style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+            </VBox>
+
+            <!-- Center: File Preview/Details -->
+            <VBox fx:id="previewPane" spacing="12" style="-fx-padding: 16;">
+                
+                <Label text="Preview" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                
+                <!-- Empty State -->
+                <VBox fx:id="previewEmptyPane" VBox.vgrow="ALWAYS"
+                      alignment="CENTER" spacing="8">
+                    <Label text="🎵" style="-fx-font-size: 48px;"/>
+                    <Label text="Select a MIDI file" style="-fx-font-size: 14px;"/>
+                    <Label text="Click a file to see its details" style="-fx-text-fill: gray;"/>
+                </VBox>
+                
+                <!-- Content -->
+                <ScrollPane fx:id="previewContentPane" fitToWidth="true" VBox.vgrow="ALWAYS"
+                            visible="false" managed="false">
+                    <VBox spacing="16" style="-fx-padding: 0 8 0 0;">
+                        
+                        <!-- File Info -->
+                        <VBox spacing="8" style="-fx-padding: 12; -fx-background-color: derive(-fx-base, 10%); -fx-background-radius: 4;">
+                            <Label fx:id="fileNameLabel" text="-" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                            <Label fx:id="filePathLabel" text="-" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                        </VBox>
+                        
+                        <!-- Analysis -->
+                        <VBox spacing="8">
+                            <Label text="Analysis" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                            
+                            <HBox spacing="24">
+                                <VBox spacing="4">
+                                    <Label text="Duration" style="-fx-font-size: 11px; -fx-text-fill: gray;"/>
+                                    <Label fx:id="durationLabel" text="-"/>
+                                </VBox>
+                                <VBox spacing="4">
+                                    <Label text="Tracks" style="-fx-font-size: 11px; -fx-text-fill: gray;"/>
+                                    <Label fx:id="trackCountLabel" text="-"/>
+                                </VBox>
+                                <VBox spacing="4">
+                                    <Label text="Notes" style="-fx-font-size: 11px; -fx-text-fill: gray;"/>
+                                    <Label fx:id="totalNotesLabel" text="-"/>
+                                </VBox>
+                                <VBox spacing="4">
+                                    <Label text="Tempo" style="-fx-font-size: 11px; -fx-text-fill: gray;"/>
+                                    <Label fx:id="tempoLabel" text="-"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                        
+                        <Separator/>
+                        
+                        <!-- Note Shift -->
+                        <VBox spacing="8">
+                            <Label text="Per-File Note Shift" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                            <Label text="Adjust mapping position for this specific file" 
+                                   style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                            <ComboBox fx:id="noteShiftCombo" promptText="Note shift" maxWidth="200"/>
+                        </VBox>
+                    </VBox>
+                </ScrollPane>
+            </VBox>
+
+            <!-- Right: Profile & Playback Controls -->
+            <VBox fx:id="controlsPane" spacing="16" style="-fx-padding: 16;">
+                
+                <Label text="Playback" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                
+                <!-- Profile Selection -->
+                <VBox spacing="8">
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="Profile" style="-fx-font-size: 14px;"/>
+                        <HBox HBox.hgrow="ALWAYS"/>
+                        <Button text="Manage" onAction="#onManageProfiles"/>
+                    </HBox>
+                    
+                    <ComboBox fx:id="profileCombo" promptText="Select profile..." maxWidth="Infinity"/>
+                    
+                    <Button text="+ Create Profile" onAction="#onCreateProfile" maxWidth="Infinity"/>
+                </VBox>
+                
+                <Separator/>
+                
+                <!-- Playback Progress -->
+                <VBox spacing="8">
+                    <ProgressBar fx:id="progressBar" progress="0" maxWidth="Infinity"/>
+                    <HBox spacing="8" alignment="CENTER">
+                        <Label fx:id="timeLabel" text="0:00 / 0:00" style="-fx-font-size: 12px;"/>
+                        <HBox HBox.hgrow="ALWAYS"/>
+                        <Label text="Key:" style="-fx-font-size: 12px;"/>
+                        <Label fx:id="currentKeyLabel" text="-" 
+                               style="-fx-font-family: monospace; -fx-padding: 4 8; -fx-background-color: derive(-fx-base, 20%); -fx-background-radius: 4;"/>
+                    </HBox>
+                </VBox>
+                
+                <VBox VBox.vgrow="ALWAYS"/>
+                
+                <!-- Playback Controls -->
+                <HBox spacing="16" alignment="CENTER" style="-fx-padding: 16;">
+                    <Button fx:id="stopButton" text="⏹ Stop" onAction="#onStop" disable="true"/>
+                    <Button fx:id="playButton" text="▶ Play" onAction="#onPlay" disable="true"
+                            style="-fx-font-size: 14px;"/>
+                    <Button fx:id="pauseButton" text="⏸ Pause" onAction="#onPause" 
+                            visible="false" managed="false"/>
+                </HBox>
+                
+                <Separator/>
+                
+                <!-- Test Mode Toggle -->
+                <HBox spacing="8" alignment="CENTER">
+                    <Label text="Test Mode" style="-fx-font-size: 12px;"/>
+                    <Button text="Toggle" onAction="#onToggleTestMode"/>
+                </HBox>
+            </VBox>
+        </SplitPane>
+    </center>
+
+    <!-- Bottom: Status Bar -->
+    <bottom>
+        <HBox spacing="16" alignment="CENTER_LEFT" style="-fx-padding: 8 24;">
+            <Label fx:id="statusLabel" text="Ready" style="-fx-font-size: 12px;"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Label text="Panic Stop: Escape or Ctrl+Shift+P" 
+                   style="-fx-font-size: 12px; -fx-text-fill: #f44336;"/>
+        </HBox>
+    </bottom>
+    
+    <!-- Countdown Overlay (hidden by default) -->
+    <StackPane fx:id="countdownOverlay" 
+               visible="false" managed="false"
+               style="-fx-background-color: rgba(0,0,0,0.85);"
+               BorderPane.alignment="CENTER">
+        <VBox alignment="CENTER" spacing="16">
+            <Label fx:id="countdownLabel" text="3" 
+                   style="-fx-font-size: 96px; -fx-font-weight: 300; -fx-text-fill: #00bcd4;"/>
+            <Label text="Get ready..." style="-fx-font-size: 20px;"/>
+            <Button text="Cancel" onAction="#onStop"/>
+        </VBox>
+    </StackPane>
+</BorderPane>

@@ -22,16 +22,16 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create project directory structure per implementation plan in src/main/java/com/burstmeman/midi2keys/
-- [ ] T002 [P] Update pom.xml to Java 17 (upgrade from Java 8) and add MaterialFX dependency (io.github.palexdev:materialfx)
-- [ ] T003 [P] Add SQLite JDBC driver dependency (org.xerial:sqlite-jdbc) to pom.xml
-- [ ] T004 [P] Add Jackson dependencies (com.fasterxml.jackson.core:jackson-databind) to pom.xml for JSON serialization
-- [ ] T005 [P] Add TestFX dependency (org.testfx:testfx-core, org.testfx:testfx-junit5) to pom.xml for UI testing
-- [ ] T006 [P] Add Mockito dependency (org.mockito:mockito-core) to pom.xml for mocking
-- [ ] T007 [P] Add SLF4J logging dependencies (org.slf4j:slf4j-api, ch.qos.logback:logback-classic) to pom.xml
-- [ ] T008 Create test directory structure (tests/unit, tests/integration, tests/ui) per plan.md
-- [ ] T009 [P] Configure MaterialFX UserAgentBuilder in src/main/java/com/burstmeman/midi2keys/infrastructure/config/ApplicationConfig.java
-- [ ] T010 Create application entry point in src/main/java/com/burstmeman/midi2keys/Main.java
+- [X] T001 Create project directory structure per implementation plan in src/main/java/com/burstmeman/midi2keys/
+- [X] T002 [P] Update pom.xml to Java 17 (upgrade from Java 8) and add MaterialFX dependency (io.github.palexdev:materialfx)
+- [X] T003 [P] Add SQLite JDBC driver dependency (org.xerial:sqlite-jdbc) to pom.xml
+- [X] T004 [P] Add Jackson dependencies (com.fasterxml.jackson.core:jackson-databind) to pom.xml for JSON serialization
+- [X] T005 [P] Add TestFX dependency (org.testfx:testfx-core, org.testfx:testfx-junit5) to pom.xml for UI testing
+- [X] T006 [P] Add Mockito dependency (org.mockito:mockito-core) to pom.xml for mocking
+- [X] T007 [P] Add SLF4J logging dependencies (org.slf4j:slf4j-api, ch.qos.logback:logback-classic) to pom.xml
+- [X] T008 Create test directory structure (tests/unit, tests/integration, tests/ui) per plan.md
+- [X] T009 [P] Configure MaterialFX UserAgentBuilder in src/main/java/com/burstmeman/midi2keys/infrastructure/config/ApplicationConfig.java
+- [X] T010 Create application entry point in src/main/java/com/burstmeman/midi2keys/Main.java
 
 ---
 
@@ -41,19 +41,19 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T011 Create DatabaseManager in src/main/java/com/burstmeman/midi2keys/infrastructure/persistence/database/DatabaseManager.java
-- [ ] T012 [P] Create database migration framework in src/main/java/com/burstmeman/midi2keys/infrastructure/persistence/database/migrations/MigrationManager.java
-- [ ] T013 [P] Create SQLite database schema (root_directories, midi_files, midi_analyses, file_note_shifts, application_settings tables)
-- [ ] T014 [P] Create FileSystemAdapter interface in src/main/java/com/burstmeman/midi2keys/infrastructure/adapters/filesystem/FileSystemAdapter.java
-- [ ] T015 [P] Implement JavaFileSystemAdapter in src/main/java/com/burstmeman/midi2keys/infrastructure/adapters/filesystem/JavaFileSystemAdapter.java
-- [ ] T016 [P] Create KeyboardSimulator interface in src/main/java/com/burstmeman/midi2keys/infrastructure/adapters/keyboard/KeyboardSimulator.java
-- [ ] T017 [P] Implement RobotKeyboardSimulator in src/main/java/com/burstmeman/midi2keys/infrastructure/adapters/keyboard/RobotKeyboardSimulator.java
-- [ ] T018 [P] Implement TestKeyboardSimulator in src/main/java/com/burstmeman/midi2keys/infrastructure/adapters/keyboard/TestKeyboardSimulator.java
-- [ ] T019 [P] Create MidiParser interface in src/main/java/com/burstmeman/midi2keys/infrastructure/adapters/midi/MidiParser.java
-- [ ] T020 [P] Implement JavaSoundMidiParser in src/main/java/com/burstmeman/midi2keys/infrastructure/adapters/midi/JavaSoundMidiParser.java
-- [ ] T021 [P] Create error handling infrastructure with user-friendly error messages
-- [ ] T022 [P] Configure logging infrastructure using SLF4J with appropriate log levels
-- [ ] T023 Create ApplicationConfig class in src/main/java/com/burstmeman/midi2keys/infrastructure/config/ApplicationConfig.java for application-wide configuration
+- [X] T011 Create DatabaseManager in src/main/java/com/burstmeman/midi2keys/infrastructure/persistence/database/DatabaseManager.java
+- [X] T012 [P] Create database migration framework in src/main/java/com/burstmeman/midi2keys/infrastructure/persistence/database/migrations/MigrationManager.java
+- [X] T013 [P] Create SQLite database schema (root_directories, midi_files, midi_analyses, file_note_shifts, application_settings tables)
+- [X] T014 [P] Create FileSystemAdapter interface in src/main/java/com/burstmeman/midi2keys/infrastructure/adapters/filesystem/FileSystemAdapter.java
+- [X] T015 [P] Implement JavaFileSystemAdapter in src/main/java/com/burstmeman/midi2keys/infrastructure/adapters/filesystem/JavaFileSystemAdapter.java
+- [X] T016 [P] Create KeyboardSimulator interface in src/main/java/com/burstmeman/midi2keys/infrastructure/adapters/keyboard/KeyboardSimulator.java
+- [X] T017 [P] Implement RobotKeyboardSimulator in src/main/java/com/burstmeman/midi2keys/infrastructure/adapters/keyboard/RobotKeyboardSimulator.java
+- [X] T018 [P] Implement TestKeyboardSimulator in src/main/java/com/burstmeman/midi2keys/infrastructure/adapters/keyboard/TestKeyboardSimulator.java
+- [X] T019 [P] Create MidiParser interface in src/main/java/com/burstmeman/midi2keys/infrastructure/adapters/midi/MidiParser.java
+- [X] T020 [P] Implement JavaSoundMidiParser in src/main/java/com/burstmeman/midi2keys/infrastructure/adapters/midi/JavaSoundMidiParser.java
+- [X] T021 [P] Create error handling infrastructure with user-friendly error messages
+- [X] T022 [P] Configure logging infrastructure using SLF4J with appropriate log levels
+- [X] T023 Create ApplicationConfig class in src/main/java/com/burstmeman/midi2keys/infrastructure/config/ApplicationConfig.java for application-wide configuration
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -79,25 +79,25 @@
 
 ### Implementation for User Story 1
 
-- [ ] T031 [P] [US1] Create RootDirectory entity in src/main/java/com/burstmeman/midi2keys/domain/entities/RootDirectory.java
-- [ ] T032 [P] [US1] Create MidiFile entity in src/main/java/com/burstmeman/midi2keys/domain/entities/MidiFile.java
-- [ ] T033 [P] [US1] Create SettingsRepository interface in src/main/java/com/burstmeman/midi2keys/domain/repositories/SettingsRepository.java
-- [ ] T034 [P] [US1] Create MidiFileRepository interface in src/main/java/com/burstmeman/midi2keys/domain/repositories/MidiFileRepository.java
-- [ ] T035 [US1] Create RootDirectoryDao in src/main/java/com/burstmeman/midi2keys/infrastructure/persistence/database/dao/RootDirectoryDao.java (depends on T011)
-- [ ] T036 [US1] Create MidiFileDao in src/main/java/com/burstmeman/midi2keys/infrastructure/persistence/database/dao/MidiFileDao.java (depends on T011)
-- [ ] T037 [US1] Implement RootDirectoryService in src/main/java/com/burstmeman/midi2keys/application/services/RootDirectoryService.java (depends on T031, T035)
-- [ ] T038 [US1] Implement MidiFileService in src/main/java/com/burstmeman/midi2keys/application/services/MidiFileService.java (depends on T032, T036, T015)
-- [ ] T039 [US1] Implement ConfigureRootDirectoryUseCase in src/main/java/com/burstmeman/midi2keys/application/usecases/ConfigureRootDirectoryUseCase.java (depends on T037)
-- [ ] T040 [US1] Implement BrowseMidiFilesUseCase in src/main/java/com/burstmeman/midi2keys/application/usecases/BrowseMidiFilesUseCase.java (depends on T038)
-- [ ] T041 [US1] Create SettingsController in src/main/java/com/burstmeman/midi2keys/ui/controllers/SettingsController.java (depends on T039)
-- [ ] T042 [US1] Create FileBrowserController in src/main/java/com/burstmeman/midi2keys/ui/controllers/FileBrowserController.java (depends on T040)
-- [ ] T043 [US1] Create settings-view.fxml in src/main/resources/com/burstmeman/midi2keys/ui/views/settings-view.fxml with MaterialFX components
-- [ ] T044 [US1] Create file-browser-view.fxml in src/main/resources/com/burstmeman/midi2keys/ui/views/file-browser-view.fxml with virtualized list
-- [ ] T045 [US1] Implement first-launch detection and automatic Settings screen display in Application.java
-- [ ] T046 [US1] Implement root directory validation and error handling for deleted/moved directories
-- [ ] T047 [US1] Implement navigation constraint logic to prevent navigation above root directories
-- [ ] T048 [US1] Create MainController in src/main/java/com/burstmeman/midi2keys/ui/controllers/MainController.java for main application window
-- [ ] T049 [US1] Create main-view.fxml in src/main/resources/com/burstmeman/midi2keys/ui/views/main-view.fxml with navigation to Settings and File Browser
+- [X] T031 [P] [US1] Create RootDirectory entity in src/main/java/com/burstmeman/midi2keys/domain/entities/RootDirectory.java
+- [X] T032 [P] [US1] Create MidiFile entity in src/main/java/com/burstmeman/midi2keys/domain/entities/MidiFile.java
+- [X] T033 [P] [US1] Create SettingsRepository interface in src/main/java/com/burstmeman/midi2keys/domain/repositories/SettingsRepository.java
+- [X] T034 [P] [US1] Create MidiFileRepository interface in src/main/java/com/burstmeman/midi2keys/domain/repositories/MidiFileRepository.java
+- [X] T035 [US1] Create RootDirectoryDao in src/main/java/com/burstmeman/midi2keys/infrastructure/persistence/database/dao/RootDirectoryDao.java (depends on T011)
+- [X] T036 [US1] Create MidiFileDao in src/main/java/com/burstmeman/midi2keys/infrastructure/persistence/database/dao/MidiFileDao.java (depends on T011)
+- [X] T037 [US1] Implement RootDirectoryService in src/main/java/com/burstmeman/midi2keys/application/services/RootDirectoryService.java (depends on T031, T035)
+- [X] T038 [US1] Implement MidiFileService in src/main/java/com/burstmeman/midi2keys/application/services/MidiFileService.java (depends on T032, T036, T015)
+- [X] T039 [US1] Implement ConfigureRootDirectoryUseCase in src/main/java/com/burstmeman/midi2keys/application/usecases/ConfigureRootDirectoryUseCase.java (depends on T037)
+- [X] T040 [US1] Implement BrowseMidiFilesUseCase in src/main/java/com/burstmeman/midi2keys/application/usecases/BrowseMidiFilesUseCase.java (depends on T038)
+- [X] T041 [US1] Create SettingsController in src/main/java/com/burstmeman/midi2keys/ui/controllers/SettingsController.java (depends on T039)
+- [X] T042 [US1] Create FileBrowserController in src/main/java/com/burstmeman/midi2keys/ui/controllers/FileBrowserController.java (depends on T040)
+- [X] T043 [US1] Create settings-view.fxml in src/main/resources/com/burstmeman/midi2keys/ui/views/settings-view.fxml with MaterialFX components
+- [X] T044 [US1] Create file-browser-view.fxml in src/main/resources/com/burstmeman/midi2keys/ui/views/file-browser-view.fxml with virtualized list
+- [X] T045 [US1] Implement first-launch detection and automatic Settings screen display in Application.java
+- [X] T046 [US1] Implement root directory validation and error handling for deleted/moved directories
+- [X] T047 [US1] Implement navigation constraint logic to prevent navigation above root directories
+- [X] T048 [US1] Create MainController in src/main/java/com/burstmeman/midi2keys/ui/controllers/MainController.java for main application window
+- [X] T049 [US1] Create main-view.fxml in src/main/resources/com/burstmeman/midi2keys/ui/views/main-view.fxml with navigation to Settings and File Browser
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -124,25 +124,25 @@
 
 ### Implementation for User Story 2
 
-- [ ] T058 [P] [US2] Create Profile entity in src/main/java/com/burstmeman/midi2keys/domain/entities/Profile.java
-- [ ] T059 [P] [US2] Create NoteMapping entity in src/main/java/com/burstmeman/midi2keys/domain/entities/NoteMapping.java
-- [ ] T060 [P] [US2] Create PlaybackOptions entity in src/main/java/com/burstmeman/midi2keys/domain/entities/PlaybackOptions.java
-- [ ] T061 [P] [US2] Create MidiNote value object in src/main/java/com/burstmeman/midi2keys/domain/valueobjects/MidiNote.java
-- [ ] T062 [P] [US2] Create KeyboardKey value object in src/main/java/com/burstmeman/midi2keys/domain/valueobjects/KeyboardKey.java
-- [ ] T063 [P] [US2] Create KeyCombination value object in src/main/java/com/burstmeman/midi2keys/domain/valueobjects/KeyCombination.java
-- [ ] T064 [P] [US2] Create ProfileRepository interface in src/main/java/com/burstmeman/midi2keys/domain/repositories/ProfileRepository.java
-- [ ] T065 [US2] Implement ProfileJsonRepository in src/main/java/com/burstmeman/midi2keys/infrastructure/persistence/json/ProfileJsonRepository.java (depends on T064)
-- [ ] T066 [US2] Implement ProfileJsonSerializer in src/main/java/com/burstmeman/midi2keys/infrastructure/persistence/json/ProfileJsonSerializer.java using Jackson (depends on T004)
-- [ ] T067 [US2] Implement ProfileService in src/main/java/com/burstmeman/midi2keys/application/services/ProfileService.java (depends on T058, T065)
-- [ ] T068 [US2] Implement CreateProfileUseCase in src/main/java/com/burstmeman/midi2keys/application/usecases/CreateProfileUseCase.java (depends on T067)
-- [ ] T069 [US2] Implement profile conflict validation logic in ProfileService
-- [ ] T070 [US2] Create ProfileManagerController in src/main/java/com/burstmeman/midi2keys/ui/controllers/ProfileManagerController.java (depends on T067)
-- [ ] T071 [US2] Create ProfileEditorController in src/main/java/com/burstmeman/midi2keys/ui/controllers/ProfileEditorController.java (depends on T067)
-- [ ] T072 [US2] Create profile-manager-view.fxml in src/main/resources/com/burstmeman/midi2keys/ui/views/profile-manager-view.fxml with MaterialFX components
-- [ ] T073 [US2] Create profile-editor-view.fxml in src/main/resources/com/burstmeman/midi2keys/ui/views/profile-editor-view.fxml with mapping editor
-- [ ] T074 [US2] Create NoteMappingEditor component in src/main/java/com/burstmeman/midi2keys/ui/components/NoteMappingEditor.java
-- [ ] T075 [US2] Implement profile selection UI and global profile state management
-- [ ] T076 [US2] Implement playback options configuration UI (tempo multiplier, quantization, velocity threshold, ignore channels, transpose, key press duration)
+- [X] T058 [P] [US2] Create Profile entity in src/main/java/com/burstmeman/midi2keys/domain/entities/Profile.java
+- [X] T059 [P] [US2] Create NoteMapping entity in src/main/java/com/burstmeman/midi2keys/domain/entities/NoteMapping.java
+- [X] T060 [P] [US2] Create PlaybackOptions entity in src/main/java/com/burstmeman/midi2keys/domain/entities/PlaybackOptions.java
+- [X] T061 [P] [US2] Create MidiNote value object in src/main/java/com/burstmeman/midi2keys/domain/valueobjects/MidiNote.java
+- [X] T062 [P] [US2] Create KeyboardKey value object in src/main/java/com/burstmeman/midi2keys/domain/valueobjects/KeyboardKey.java
+- [X] T063 [P] [US2] Create KeyCombination value object in src/main/java/com/burstmeman/midi2keys/domain/valueobjects/KeyCombination.java
+- [X] T064 [P] [US2] Create ProfileRepository interface in src/main/java/com/burstmeman/midi2keys/domain/repositories/ProfileRepository.java
+- [X] T065 [US2] Implement ProfileJsonRepository in src/main/java/com/burstmeman/midi2keys/infrastructure/persistence/json/ProfileJsonRepository.java (depends on T064)
+- [X] T066 [US2] Implement ProfileJsonSerializer in src/main/java/com/burstmeman/midi2keys/infrastructure/persistence/json/ProfileJsonSerializer.java using Jackson (depends on T004)
+- [X] T067 [US2] Implement ProfileService in src/main/java/com/burstmeman/midi2keys/application/services/ProfileService.java (depends on T058, T065)
+- [X] T068 [US2] Implement CreateProfileUseCase in src/main/java/com/burstmeman/midi2keys/application/usecases/CreateProfileUseCase.java (depends on T067)
+- [X] T069 [US2] Implement profile conflict validation logic in ProfileService
+- [X] T070 [US2] Create ProfileManagerController in src/main/java/com/burstmeman/midi2keys/ui/controllers/ProfileManagerController.java (depends on T067)
+- [X] T071 [US2] Create ProfileEditorController in src/main/java/com/burstmeman/midi2keys/ui/controllers/ProfileEditorController.java (depends on T067)
+- [X] T072 [US2] Create profile-manager-view.fxml in src/main/resources/com/burstmeman/midi2keys/ui/views/profile-manager-view.fxml with MaterialFX components
+- [X] T073 [US2] Create profile-editor-view.fxml in src/main/resources/com/burstmeman/midi2keys/ui/views/profile-editor-view.fxml with mapping editor
+- [X] T074 [US2] Create NoteMappingEditor component in src/main/java/com/burstmeman/midi2keys/ui/components/NoteMappingEditor.java
+- [X] T075 [US2] Implement profile selection UI and global profile state management
+- [X] T076 [US2] Implement playback options configuration UI (tempo multiplier, quantization, velocity threshold, ignore channels, transpose, key press duration)
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -165,15 +165,15 @@
 
 ### Implementation for User Story 3
 
-- [ ] T081 [P] [US3] Create MidiAnalysis entity in src/main/java/com/burstmeman/midi2keys/domain/entities/MidiAnalysis.java
-- [ ] T082 [US3] Create MidiAnalysisDao in src/main/java/com/burstmeman/midi2keys/infrastructure/persistence/database/dao/MidiAnalysisDao.java (depends on T011)
-- [ ] T083 [US3] Implement MidiAnalysisService in src/main/java/com/burstmeman/midi2keys/application/services/MidiAnalysisService.java (depends on T081, T082, T020)
-- [ ] T084 [US3] Implement AnalyzeMidiFileUseCase in src/main/java/com/burstmeman/midi2keys/application/usecases/AnalyzeMidiFileUseCase.java (depends on T083)
-- [ ] T085 [US3] Implement MIDI file parsing and analysis logic (format type, tracks, duration, tempo changes, time signature, note histogram, channel/track counts, velocity statistics, melody length estimation)
-- [ ] T086 [US3] Create PreviewController in src/main/java/com/burstmeman/midi2keys/ui/controllers/PreviewController.java (depends on T084)
-- [ ] T087 [US3] Create preview-view.fxml in src/main/resources/com/burstmeman/midi2keys/ui/views/preview-view.fxml with analysis display components
-- [ ] T088 [US3] Implement single-click file selection to show preview panel in FileBrowserController
-- [ ] T089 [US3] Implement lazy loading of MIDI analysis (analyze on demand, cache results in database)
+- [X] T081 [P] [US3] Create MidiAnalysis entity in src/main/java/com/burstmeman/midi2keys/domain/entities/MidiAnalysis.java
+- [X] T082 [US3] Create MidiAnalysisDao in src/main/java/com/burstmeman/midi2keys/infrastructure/persistence/database/dao/MidiAnalysisDao.java (depends on T011)
+- [X] T083 [US3] Implement MidiAnalysisService in src/main/java/com/burstmeman/midi2keys/application/services/MidiAnalysisService.java (depends on T081, T082, T020)
+- [X] T084 [US3] Implement AnalyzeMidiFileUseCase in src/main/java/com/burstmeman/midi2keys/application/usecases/AnalyzeMidiFileUseCase.java (depends on T083)
+- [X] T085 [US3] Implement MIDI file parsing and analysis logic (format type, tracks, duration, tempo changes, time signature, note histogram, channel/track counts, velocity statistics, melody length estimation)
+- [X] T086 [US3] Create PreviewController in src/main/java/com/burstmeman/midi2keys/ui/controllers/PreviewController.java (depends on T084)
+- [X] T087 [US3] Create preview-view.fxml in src/main/resources/com/burstmeman/midi2keys/ui/views/preview-view.fxml with analysis display components
+- [X] T088 [US3] Implement single-click file selection to show preview panel in FileBrowserController
+- [X] T089 [US3] Implement lazy loading of MIDI analysis (analyze on demand, cache results in database)
 
 **Checkpoint**: At this point, User Stories 1, 2, AND 3 should all work independently
 
@@ -196,22 +196,22 @@
 
 ### Implementation for User Story 4
 
-- [ ] T094 [P] [US4] Create NoteShift value object in src/main/java/com/burstmeman/midi2keys/domain/valueobjects/NoteShift.java
-- [ ] T095 [US4] Update MidiFile entity to include note shift configuration (depends on T032, T094)
-- [ ] T096 [US4] Create file_note_shifts table migration in database (depends on T012)
-- [ ] T097 [US4] Implement PlaybackService in src/main/java/com/burstmeman/midi2keys/application/services/PlaybackService.java (depends on T067, T020, T016)
-- [ ] T098 [US4] Implement PlayMidiFileUseCase in src/main/java/com/burstmeman/midi2keys/application/usecases/PlayMidiFileUseCase.java (depends on T097)
-- [ ] T099 [US4] Implement MIDI event scheduling and timing logic with profile options (tempo multiplier, quantization, velocity threshold, transpose)
-- [ ] T100 [US4] Implement note shift application logic (shift profile mappings 1-4 notes up/down per file)
-- [ ] T101 [US4] Implement playback controls (Play/Pause/Stop) with state management
-- [ ] T102 [US4] Implement progress indicator and current position/time display
-- [ ] T103 [US4] Implement countdown timer (default 3 seconds, configurable 1-10 seconds) before playback
-- [ ] T104 [US4] Implement non-blocking playback using JavaFX Task/Service to avoid blocking UI thread
-- [ ] T105 [US4] Create PlaybackController in src/main/java/com/burstmeman/midi2keys/ui/controllers/PlaybackController.java (depends on T098)
-- [ ] T106 [US4] Create playback-view.fxml in src/main/resources/com/burstmeman/midi2keys/ui/views/playback-view.fxml with controls and progress indicator
-- [ ] T107 [US4] Implement double-click file or Play button to start playback in FileBrowserController
-- [ ] T108 [US4] Implement per-file note shift configuration UI in preview panel
-- [ ] T109 [US4] Implement key press/release event simulation according to MIDI timing and profile mappings
+- [X] T094 [P] [US4] Create NoteShift value object in src/main/java/com/burstmeman/midi2keys/domain/valueobjects/NoteShift.java
+- [X] T095 [US4] Update MidiFile entity to include note shift configuration (depends on T032, T094)
+- [X] T096 [US4] Create file_note_shifts table migration in database (depends on T012)
+- [X] T097 [US4] Implement PlaybackService in src/main/java/com/burstmeman/midi2keys/application/services/PlaybackService.java (depends on T067, T020, T016)
+- [X] T098 [US4] Implement PlayMidiFileUseCase in src/main/java/com/burstmeman/midi2keys/application/usecases/PlayMidiFileUseCase.java (depends on T097)
+- [X] T099 [US4] Implement MIDI event scheduling and timing logic with profile options (tempo multiplier, quantization, velocity threshold, transpose)
+- [X] T100 [US4] Implement note shift application logic (shift profile mappings 1-4 notes up/down per file)
+- [X] T101 [US4] Implement playback controls (Play/Pause/Stop) with state management
+- [X] T102 [US4] Implement progress indicator and current position/time display
+- [X] T103 [US4] Implement countdown timer (default 3 seconds, configurable 1-10 seconds) before playback
+- [X] T104 [US4] Implement non-blocking playback using JavaFX Task/Service to avoid blocking UI thread
+- [X] T105 [US4] Create PlaybackController in src/main/java/com/burstmeman/midi2keys/ui/controllers/PlaybackController.java (depends on T098)
+- [X] T106 [US4] Create playback-view.fxml in src/main/resources/com/burstmeman/midi2keys/ui/views/playback-view.fxml with controls and progress indicator
+- [X] T107 [US4] Implement double-click file or Play button to start playback in FileBrowserController
+- [X] T108 [US4] Implement per-file note shift configuration UI in preview panel
+- [X] T109 [US4] Implement key press/release event simulation according to MIDI timing and profile mappings
 
 **Checkpoint**: At this point, User Stories 1, 2, 3, AND 4 should all work independently
 
@@ -234,15 +234,15 @@
 
 ### Implementation for User Story 5
 
-- [ ] T114 [US5] Implement file search/filter by filename in MidiFileService (depends on T038)
-- [ ] T115 [US5] Implement virtualized list optimization for large folders (10,000+ files) in FileBrowserController
-- [ ] T116 [US5] Implement comprehensive error handling with user-friendly messages for unreadable files, unsupported MIDI content, missing permissions
-- [ ] T117 [US5] Implement global panic stop hotkey (default Ctrl+Shift+Escape, configurable) in Application.java
-- [ ] T118 [US5] Implement panic stop functionality to immediately stop playback and release all pressed keys
-- [ ] T119 [US5] Implement test mode toggle that uses TestKeyboardSimulator instead of RobotKeyboardSimulator
-- [ ] T120 [US5] Add panic stop hotkey configuration to Settings UI
-- [ ] T121 [US5] Implement error message display UI components with actionable guidance
-- [ ] T122 [US5] Optimize file list rendering performance for large directories
+- [X] T114 [US5] Implement file search/filter by filename in MidiFileService (depends on T038)
+- [X] T115 [US5] Implement virtualized list optimization for large folders (10,000+ files) in FileBrowserController
+- [X] T116 [US5] Implement comprehensive error handling with user-friendly messages for unreadable files, unsupported MIDI content, missing permissions
+- [X] T117 [US5] Implement global panic stop hotkey (default Ctrl+Shift+Escape, configurable) in Application.java
+- [X] T118 [US5] Implement panic stop functionality to immediately stop playback and release all pressed keys
+- [X] T119 [US5] Implement test mode toggle that uses TestKeyboardSimulator instead of RobotKeyboardSimulator
+- [X] T120 [US5] Add panic stop hotkey configuration to Settings UI
+- [X] T121 [US5] Implement error message display UI components with actionable guidance
+- [X] T122 [US5] Optimize file list rendering performance for large directories
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -252,17 +252,17 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T123 [P] Documentation updates (README.md, user guide)
-- [ ] T124 Code cleanup and refactoring across all layers
-- [ ] T125 [P] Performance optimization (startup time, UI responsiveness, memory usage)
+- [X] T123 [P] Documentation updates (README.md, user guide)
+- [X] T124 Code cleanup and refactoring across all layers
+- [X] T125 [P] Performance optimization (startup time, UI responsiveness, memory usage)
 - [ ] T126 [P] Additional unit tests to reach 80% coverage target for business logic
 - [ ] T127 [P] Additional UI tests to reach 60% coverage target for controllers
-- [ ] T128 [P] Accessibility improvements (keyboard navigation, screen reader support)
-- [ ] T129 [P] UI consistency review and Material Design compliance check
-- [ ] T130 Error handling refinement and user message improvements
-- [ ] T131 Logging enhancement with appropriate context and levels
-- [ ] T132 Memory profiling and optimization for large MIDI files
-- [ ] T133 Application packaging and Windows 11 deployment preparation
+- [X] T128 [P] Accessibility improvements (keyboard navigation, screen reader support)
+- [X] T129 [P] UI consistency review and Material Design compliance check
+- [X] T130 Error handling refinement and user message improvements
+- [X] T131 Logging enhancement with appropriate context and levels
+- [X] T132 Memory profiling and optimization for large MIDI files
+- [X] T133 Application packaging and Windows 11 deployment preparation
 
 ---
 
