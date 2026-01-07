@@ -55,15 +55,15 @@ New features MUST start with failing tests (red phase). Implementation proceeds 
 
 ### UI/Backend Separation
 
-**Controllers (JavaFX)**: Handle FXML binding, user input validation (format only), UI state management, and delegate to services. Controllers MUST NOT contain business logic.
+**UI/Controllers (JavaFX)**: Handle FXML binding, user input validation (format only), UI state management, and delegate to services. Controllers MUST NOT contain business logic.
 
-**Services**: Implement business rules, orchestrate domain operations, handle transactions, and coordinate between domain models. Services are framework-agnostic.
+**Application**: Implement business rules, orchestrate domain operations, handle transactions, and coordinate between domain models. Services are framework-agnostic.
 
-**Domain Models**: Represent core business entities and rules. Domain models MUST be pure Java classes with no framework dependencies.
+**Domain**: Represent core business entities and rules. Domain models MUST be pure Java classes with no framework dependencies.
 
-**Repositories/Adapters**: Abstract external dependencies (MIDI devices, file system, configuration). Implement interfaces defined in domain layer.
+**Infrastruture/Adapters**: Abstract external dependencies (MIDI devices, file system, configuration). Implement interfaces defined in domain layer.
 
-**Dependency Direction**: UI → Services → Domain Models. Services depend on abstractions (interfaces), not concrete implementations.
+**Dependency Direction**: UI → Application → Domain. Services depend on abstractions (interfaces), not concrete implementations.
 
 ## Testing Standards
 
