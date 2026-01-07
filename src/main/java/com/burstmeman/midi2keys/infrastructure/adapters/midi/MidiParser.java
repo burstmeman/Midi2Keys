@@ -9,25 +9,25 @@ import java.util.List;
  * Abstracts MIDI file reading and event extraction.
  */
 public interface MidiParser {
-    
+
     /**
      * Parses a MIDI file and returns its information.
-     * 
+     *
      * @param path Path to the MIDI file
      * @return Parsed MIDI file information
-     * @throws IOException if file cannot be read
+     * @throws IOException        if file cannot be read
      * @throws MidiParseException if file format is invalid
      */
     MidiFileInfo parse(Path path) throws IOException, MidiParseException;
-    
+
     /**
      * Checks if a file is a valid MIDI file.
-     * 
+     *
      * @param path Path to check
      * @return true if file appears to be valid MIDI
      */
     boolean isValidMidiFile(Path path);
-    
+
     /**
      * Container for parsed MIDI file information.
      */
@@ -41,8 +41,9 @@ public interface MidiParser {
             String timeSignature,
             List<MidiTrackInfo> tracks,
             List<MidiNoteEvent> noteEvents
-    ) {}
-    
+    ) {
+    }
+
     /**
      * Information about a MIDI track.
      */
@@ -51,8 +52,9 @@ public interface MidiParser {
             String name,
             int noteCount,
             int eventCount
-    ) {}
-    
+    ) {
+    }
+
     /**
      * Represents a MIDI note event (Note On or Note Off).
      */
@@ -64,8 +66,9 @@ public interface MidiParser {
             int velocity,             // Velocity (0-127, 0 = note off)
             boolean isNoteOn,         // true for Note On, false for Note Off
             int trackNumber
-    ) {}
-    
+    ) {
+    }
+
     /**
      * Exception for MIDI parsing errors.
      */
@@ -73,7 +76,7 @@ public interface MidiParser {
         public MidiParseException(String message) {
             super(message);
         }
-        
+
         public MidiParseException(String message, Throwable cause) {
             super(message, cause);
         }
