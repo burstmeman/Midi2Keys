@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.burstmeman.midi2keys.ui.controllers.ProfileEditorController"
+      spacing="16" prefWidth="800" prefHeight="700">
+    
+    <padding>
+        <Insets topRightBottomLeft="24"/>
+    </padding>
+    
+    <!-- Header -->
+    <Label text="Edit Profile" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+        <VBox spacing="24">
+            <padding>
+                <Insets right="16"/>
+            </padding>
+            
+            <!-- Basic Info -->
+            <VBox spacing="12">
+                <Label text="Profile Information" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                
+                <VBox spacing="8">
+                    <Label text="Name" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                    <TextField fx:id="profileNameField" promptText="Profile name"/>
+                </VBox>
+                
+                <VBox spacing="8">
+                    <Label text="Description (optional)" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                    <TextField fx:id="descriptionField" promptText="Description"/>
+                </VBox>
+            </VBox>
+            
+            <Separator/>
+            
+            <!-- Note Mappings -->
+            <VBox spacing="12">
+                <Label text="Note Mappings" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Label text="Map MIDI notes to keyboard keys" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                
+                <!-- Add Mapping Form -->
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <VBox spacing="4">
+                        <Label text="Note #" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                        <TextField fx:id="noteNumberField" 
+                                   promptText="0-127"
+                                   prefWidth="80"/>
+                    </VBox>
+                    
+                    <VBox spacing="4">
+                        <Label text="Key" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                        <TextField fx:id="keyField" 
+                                   promptText="e.g., A, Ctrl+B"
+                                   prefWidth="120"/>
+                    </VBox>
+                    
+                    <VBox spacing="4">
+                        <Label text="Channel" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                        <ComboBox fx:id="channelCombo" prefWidth="120"/>
+                    </VBox>
+                    
+                    <Button fx:id="addMappingButton" 
+                            text="+ Add"
+                            onAction="#onAddMapping"/>
+                </HBox>
+                
+                <!-- Mappings List -->
+                <ListView fx:id="mappingListView" prefHeight="200"/>
+                
+                <Button fx:id="removeMappingButton" 
+                        text="Remove Selected"
+                        onAction="#onRemoveMapping"
+                        disable="true"/>
+            </VBox>
+            
+            <Separator/>
+            
+            <!-- Playback Options -->
+            <VBox spacing="16">
+                <Label text="Playback Options" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                
+                <!-- Tempo Multiplier -->
+                <VBox spacing="8">
+                    <HBox spacing="16" alignment="CENTER_LEFT">
+                        <Label text="Tempo Multiplier"/>
+                        <Label fx:id="tempoValueLabel" text="100%" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                    </HBox>
+                    <Slider fx:id="tempoSlider" showTickLabels="true" showTickMarks="true"/>
+                    <Label text="Adjust playback speed (25% - 400%)" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                </VBox>
+                
+                <!-- Quantization -->
+                <VBox spacing="8">
+                    <Label text="Quantization"/>
+                    <ComboBox fx:id="quantizationCombo" prefWidth="200"/>
+                    <Label text="Snap note timing to grid" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                </VBox>
+                
+                <!-- Velocity Threshold -->
+                <VBox spacing="8">
+                    <HBox spacing="16" alignment="CENTER_LEFT">
+                        <Label text="Minimum Velocity"/>
+                        <Label fx:id="velocityValueLabel" text="1" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                    </HBox>
+                    <Slider fx:id="velocityThresholdSlider" showTickLabels="true" showTickMarks="true"/>
+                    <Label text="Ignore notes below this velocity" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                </VBox>
+                
+                <!-- Transpose -->
+                <VBox spacing="8">
+                    <HBox spacing="16" alignment="CENTER_LEFT">
+                        <Label text="Transpose"/>
+                        <Label fx:id="transposeValueLabel" text="0" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                    </HBox>
+                    <Slider fx:id="transposeSlider" showTickLabels="true" showTickMarks="true"/>
+                    <Label text="Shift notes up/down (-24 to +24 semitones)" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                </VBox>
+                
+                <!-- Key Press Duration -->
+                <VBox spacing="8">
+                    <HBox spacing="16" alignment="CENTER_LEFT">
+                        <Label text="Key Press Duration"/>
+                        <Label fx:id="keyDurationValueLabel" text="50ms" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                    </HBox>
+                    <Slider fx:id="keyDurationSlider" showTickLabels="true" showTickMarks="true"/>
+                    <Label text="How long to hold each key (10-500ms)" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                </VBox>
+                
+                <!-- Ignored Channels -->
+                <VBox spacing="8">
+                    <Label text="Active Channels"/>
+                    <VBox fx:id="channelTogglesContainer" spacing="8"/>
+                    <Label text="Toggle channels on/off (disabled channels are ignored)" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+                </VBox>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+    
+    <Separator/>
+    
+    <!-- Footer -->
+    <HBox spacing="16" alignment="CENTER_RIGHT">
+        <Button fx:id="cancelButton" 
+                text="Cancel" 
+                onAction="#onCancel"/>
+        <Button fx:id="saveButton" 
+                text="Save Profile" 
+                onAction="#onSave"/>
+    </HBox>
+</VBox>

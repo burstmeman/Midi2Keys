@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.burstmeman.midi2keys.ui.controllers.ProfileManagerController"
+      spacing="16" prefWidth="700" prefHeight="500">
+    
+    <padding>
+        <Insets topRightBottomLeft="24"/>
+    </padding>
+    
+    <!-- Header -->
+    <HBox spacing="16" alignment="CENTER_LEFT">
+        <Label text="Profile Manager" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+        <HBox HBox.hgrow="ALWAYS"/>
+        <Label fx:id="currentProfileLabel" text="No profile selected" style="-fx-text-fill: gray;"/>
+    </HBox>
+    
+    <Separator/>
+    
+    <HBox spacing="16" VBox.vgrow="ALWAYS">
+        <!-- Left: Profile List -->
+        <VBox spacing="12" prefWidth="300">
+            <Label text="Profiles" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            
+            <ListView fx:id="profileListView" VBox.vgrow="ALWAYS"/>
+            
+            <!-- Create New Profile -->
+            <HBox spacing="8">
+                <TextField fx:id="newProfileNameField" 
+                           promptText="New profile name..."
+                           HBox.hgrow="ALWAYS"/>
+                <Button fx:id="createButton" 
+                        text="Create" 
+                        onAction="#onCreateProfile"/>
+            </HBox>
+            
+            <Button text="Create Default Piano Profile" 
+                    onAction="#onCreateDefaultProfile"
+                    maxWidth="Infinity"/>
+        </VBox>
+        
+        <!-- Right: Details and Actions -->
+        <VBox spacing="16" HBox.hgrow="ALWAYS">
+            <Label text="Profile Details" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            
+            <VBox fx:id="detailsPane" spacing="8" visible="false">
+                <Label fx:id="mappingCountLabel" text="0 mappings"/>
+                <Label fx:id="createdAtLabel" text="Created: -" style="-fx-text-fill: gray;"/>
+                <Label fx:id="updatedAtLabel" text="Updated: -" style="-fx-text-fill: gray;"/>
+            </VBox>
+            
+            <VBox VBox.vgrow="ALWAYS"/>
+            
+            <!-- Action Buttons -->
+            <Label text="Actions" style="-fx-font-size: 14px;"/>
+            
+            <VBox spacing="8">
+                <Button fx:id="selectButton" 
+                        text="Select as Current" 
+                        onAction="#onSelectProfile"
+                        maxWidth="Infinity"
+                        disable="true"/>
+                
+                <Button fx:id="editButton" 
+                        text="Edit Mappings" 
+                        onAction="#onEditProfile"
+                        maxWidth="Infinity"
+                        disable="true"/>
+                
+                <Button fx:id="duplicateButton" 
+                        text="Duplicate" 
+                        onAction="#onDuplicateProfile"
+                        maxWidth="Infinity"
+                        disable="true"/>
+                
+                <Button text="Set as Default" 
+                        onAction="#onSetDefault"
+                        maxWidth="Infinity"/>
+                
+                <Button fx:id="deleteButton" 
+                        text="Delete" 
+                        onAction="#onDeleteProfile"
+                        maxWidth="Infinity"
+                        disable="true"
+                        style="-fx-text-fill: #f44336;"/>
+            </VBox>
+        </VBox>
+    </HBox>
+    
+    <Separator/>
+    
+    <!-- Footer -->
+    <HBox spacing="16" alignment="CENTER_RIGHT">
+        <Button text="Close" onAction="#onClose"/>
+    </HBox>
+</VBox>

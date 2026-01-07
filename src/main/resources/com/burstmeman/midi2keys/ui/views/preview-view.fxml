@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.burstmeman.midi2keys.ui.controllers.PreviewController"
+      spacing="12">
+    
+    <padding>
+        <Insets topRightBottomLeft="16"/>
+    </padding>
+    
+    <!-- Header -->
+    <HBox spacing="16" alignment="CENTER_LEFT">
+        <Label text="Preview" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        <HBox HBox.hgrow="ALWAYS"/>
+        <Button fx:id="reanalyzeButton" text="↻ Refresh" onAction="#onReanalyze"/>
+    </HBox>
+    
+    <!-- Empty State -->
+    <VBox fx:id="emptyPane" spacing="16" alignment="CENTER" VBox.vgrow="ALWAYS">
+        <Label text="🎵" style="-fx-font-size: 48px;"/>
+        <Label text="No File Selected" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        <Label text="Select a MIDI file to view details" style="-fx-text-fill: gray;"/>
+    </VBox>
+    
+    <!-- Loading State -->
+    <VBox fx:id="loadingPane" spacing="16" alignment="CENTER" VBox.vgrow="ALWAYS" visible="false" managed="false">
+        <ProgressIndicator fx:id="loadingSpinner"/>
+        <Label text="Analyzing MIDI file..." style="-fx-font-size: 12px;"/>
+    </VBox>
+    
+    <!-- Content -->
+    <ScrollPane fx:id="contentPane" fitToWidth="true" VBox.vgrow="ALWAYS" visible="false" managed="false">
+        <VBox spacing="16">
+            <padding>
+                <Insets right="8"/>
+            </padding>
+            
+            <!-- File Info -->
+            <VBox spacing="8">
+                <Label text="File Information" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                
+                <HBox spacing="8">
+                    <Label text="Name:" style="-fx-font-size: 12px; -fx-text-fill: gray;" minWidth="80"/>
+                    <Label fx:id="fileNameLabel" text="-" wrapText="true"/>
+                </HBox>
+                
+                <HBox spacing="8">
+                    <Label text="Path:" style="-fx-font-size: 12px; -fx-text-fill: gray;" minWidth="80"/>
+                    <Label fx:id="filePathLabel" text="-" style="-fx-font-size: 12px; -fx-text-fill: gray;" wrapText="true"/>
+                </HBox>
+                
+                <HBox spacing="8">
+                    <Label text="Size:" style="-fx-font-size: 12px; -fx-text-fill: gray;" minWidth="80"/>
+                    <Label fx:id="fileSizeLabel" text="-"/>
+                </HBox>
+            </VBox>
+            
+            <Separator/>
+            
+            <!-- MIDI Info -->
+            <VBox spacing="8">
+                <Label text="MIDI Information" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                
+                <HBox spacing="8">
+                    <Label text="Format:" style="-fx-font-size: 12px; -fx-text-fill: gray;" minWidth="80"/>
+                    <Label fx:id="formatLabel" text="-"/>
+                </HBox>
+                
+                <HBox spacing="8">
+                    <Label text="Duration:" style="-fx-font-size: 12px; -fx-text-fill: gray;" minWidth="80"/>
+                    <Label fx:id="durationLabel" text="-"/>
+                </HBox>
+                
+                <HBox spacing="8">
+                    <Label text="Tracks:" style="-fx-font-size: 12px; -fx-text-fill: gray;" minWidth="80"/>
+                    <Label fx:id="trackCountLabel" text="-"/>
+                </HBox>
+                
+                <HBox spacing="8">
+                    <Label text="Tempo:" style="-fx-font-size: 12px; -fx-text-fill: gray;" minWidth="80"/>
+                    <Label fx:id="tempoLabel" text="-"/>
+                </HBox>
+                
+                <HBox spacing="8">
+                    <Label text="Time Sig:" style="-fx-font-size: 12px; -fx-text-fill: gray;" minWidth="80"/>
+                    <Label fx:id="timeSignatureLabel" text="-"/>
+                </HBox>
+            </VBox>
+            
+            <Separator/>
+            
+            <!-- Note Statistics -->
+            <VBox spacing="8">
+                <Label text="Note Statistics" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                
+                <HBox spacing="8">
+                    <Label text="Total Notes:" style="-fx-font-size: 12px; -fx-text-fill: gray;" minWidth="80"/>
+                    <Label fx:id="totalNotesLabel" text="-"/>
+                </HBox>
+                
+                <HBox spacing="8">
+                    <Label text="Note Range:" style="-fx-font-size: 12px; -fx-text-fill: gray;" minWidth="80"/>
+                    <Label fx:id="noteRangeLabel" text="-"/>
+                </HBox>
+                
+                <HBox spacing="8">
+                    <Label text="Channels:" style="-fx-font-size: 12px; -fx-text-fill: gray;" minWidth="80"/>
+                    <Label fx:id="channelCountLabel" text="-"/>
+                </HBox>
+                
+                <HBox spacing="8">
+                    <Label text="Velocity:" style="-fx-font-size: 12px; -fx-text-fill: gray;" minWidth="80"/>
+                    <Label fx:id="velocityStatsLabel" text="-"/>
+                </HBox>
+            </VBox>
+            
+            <Separator/>
+            
+            <!-- Note Histogram -->
+            <VBox spacing="8">
+                <Label text="Note Distribution" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                <Canvas fx:id="histogramCanvas" width="300" height="100"/>
+            </VBox>
+            
+            <Separator/>
+            
+            <!-- Note Shift Setting -->
+            <VBox spacing="8">
+                <Label text="Per-File Note Shift" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                <ComboBox fx:id="noteShiftCombo" prefWidth="200"/>
+                <Label text="Shift profile mappings for this file only" style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+            </VBox>
+            
+            <VBox VBox.vgrow="ALWAYS"/>
+            
+            <!-- Play Button -->
+            <Button fx:id="playButton" text="▶ Play This File" 
+                    onAction="#onPlay" maxWidth="Infinity"/>
+        </VBox>
+    </ScrollPane>
+</VBox>
