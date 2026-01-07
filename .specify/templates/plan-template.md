@@ -31,7 +31,35 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+**Architecture Compliance**:
+- [ ] UI (JavaFX controllers) separated from business logic (services)
+- [ ] Dependencies flow inward: UI → Application → Domain
+- [ ] External dependencies abstracted behind interfaces
+- [ ] Business logic is framework-agnostic and independently testable
+
+**Testing Standards**:
+- [ ] Test strategy follows AAA pattern (Arrange-Act-Assert)
+- [ ] Unit tests planned for business logic (target: 80% coverage)
+- [ ] Integration tests planned for component interactions
+- [ ] UI tests planned for user interactions (target: 60% coverage for controllers)
+
+**Code Quality**:
+- [ ] Functions designed for single responsibility
+- [ ] Naming conventions follow domain language
+- [ ] Error handling strategy defined
+- [ ] Logging strategy defined
+
+**Performance Requirements**:
+- [ ] Startup time target defined (< 2 seconds)
+- [ ] UI responsiveness targets defined (< 100ms for interactions)
+- [ ] Background operation strategy (non-blocking UI thread)
+- [ ] Memory usage considerations identified
+
+**User Experience**:
+- [ ] UI consistency patterns defined
+- [ ] Error message strategy defined
+- [ ] User feedback mechanisms planned (loading states, progress indicators)
+- [ ] Accessibility considerations identified
 
 ## Project Structure
 
