@@ -1,23 +1,10 @@
 # Midi2Keys
 
+> **⚠️ Important Note**: This project was **fully generated** using [Cursor](https://cursor.sh) and [spec-kit](https://github.com/github/spec-kit) following Spec-Driven Development principles. This is primarily an **experiment** to evaluate the quality of code that AI tools can generate when following structured development methodologies. **No manual code was written** - everything was generated through AI-assisted development.
+>
+> The main goal of this experiment is to assess whether AI tools can produce code that follows important software engineering principles and is maintainable, readable, and doesn't cause "blood from eyes" or "WTF expression" moments when reviewing it. In my experience, simple prompts often lead to poor quality code that shouldn't be seen by any living creature, so this project serves as a test case for structured, spec-driven AI development.
+
 A Windows 11 desktop application that converts MIDI files into simulated keyboard keystrokes. Built with Java 17 and JavaFX with Material Design UI.
-
-## Features
-
-- **MIDI to Keyboard Mapping**: Convert MIDI note events to keyboard key presses
-- **Profile Management**: Create and manage multiple mapping profiles stored as JSON files
-- **File Browser**: Navigate MIDI files within configured root directories
-- **MIDI Analysis**: Preview file metadata, note histogram, velocity statistics, and more
-- **Real-time Playback**: Play MIDI files with configurable tempo, quantization, and transpose
-- **Note Shift**: Per-file note shifting for limited keyboard ranges
-- **Safeguards**: Global panic stop hotkey (Escape) and test mode for preview without keystrokes
-- **Modern UI**: Dark theme Material Design using MaterialFX library
-
-## Requirements
-
-- **Java 17** or later (OpenJDK or Oracle JDK)
-- **Windows 11** (keyboard simulation uses Java Robot API)
-- **Maven 3.8+** for building
 
 ## Building
 
@@ -152,30 +139,9 @@ The project follows:
 - AAA (Arrange-Act-Assert) testing pattern
 - JavaDoc for public APIs
 
-## Dependencies
-
-| Dependency | Version | Purpose |
-|------------|---------|---------|
-| JavaFX | 21.0.6 | UI Framework |
-| MaterialFX | 11.17.0 | Material Design Components |
-| SQLite JDBC | 3.44.1.0 | Database |
-| Jackson | 2.16.1 | JSON Serialization |
-| SLF4J + Logback | 2.0.9 / 1.4.14 | Logging |
-| JUnit 5 | 5.10.1 | Testing |
-| Mockito | 5.8.0 | Mocking |
-| TestFX | 4.0.18 | UI Testing |
-
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Write tests for new functionality
-4. Ensure all tests pass
-5. Submit a pull request
+AGPL-3.0 License - see [LICENSE](LICENSE) for details.
 
 ## Acknowledgments
 
