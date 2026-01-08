@@ -22,6 +22,11 @@ out/
 
 # IDE - Eclipse
 .classpath
+.factorypath
+.projectir
+.settings
+.springBeans
+.sts4-cache
 .project
 .settings/
 bin/
