@@ -16,7 +16,7 @@ public class Main {
 
         try {
             // Launch the JavaFX application
-            Application.launch(args);
+                Application.launch(args);
         } catch (Exception e) {
             log.error("Failed to start application", e);
             System.exit(1);
