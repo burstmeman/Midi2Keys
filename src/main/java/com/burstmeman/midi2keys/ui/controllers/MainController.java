@@ -9,15 +9,17 @@ import com.burstmeman.midi2keys.domain.entities.MidiFile;
 import com.burstmeman.midi2keys.domain.entities.Profile;
 import com.burstmeman.midi2keys.domain.entities.RootDirectory;
 import com.burstmeman.midi2keys.domain.repositories.SettingsRepository;
-import com.burstmeman.midi2keys.infrastructure.di.ServiceLocator;
 import com.burstmeman.midi2keys.infrastructure.error.ApplicationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import com.burstmeman.midi2keys.infrastructure.error.ErrorHandler;
+import com.burstmeman.midi2keys.Application;
 import com.burstmeman.midi2keys.ui.components.TestModeWindow;
+import com.burstmeman.midi2keys.ui.SpringFXMLLoader;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -46,6 +48,7 @@ import java.util.ResourceBundle;
  * Coordinates between file browser, preview, playback, and profile management.
  */
 @Slf4j
+@Component
 public class MainController implements Initializable {
 
     // State
@@ -118,17 +121,27 @@ public class MainController implements Initializable {
     private HBox testModeIndicator;
     // Test mode window
     private TestModeWindow testModeWindow;
-    // Services
-    private ServiceLocator serviceLocator;
+    // Services - injected by Spring
+    @Autowired
     private RootDirectoryService rootDirectoryService;
+    @Autowired
     private ProfileService profileService;
+    @Autowired
     private MidiFileService midiFileService;
+    @Autowired
     private ConfigureRootDirectoryUseCase configureRootDirectoryUseCase;
+    @Autowired
     private BrowseMidiFilesUseCase browseMidiFilesUseCase;
+    @Autowired
     private CreateProfileUseCase createProfileUseCase;
+    @Autowired
     private AnalyzeMidiFileUseCase analyzeMidiFileUseCase;
+    @Autowired
     private PlayMidiFileUseCase playMidiFileUseCase;
+    @Autowired
     private SettingsRepository settingsRepository;
+    @Autowired
+    private TestModeService testModeService;
     private List<RootDirectory> rootDirectories;
     private RootDirectory currentRootDirectory;
     private String currentPath = "";
@@ -139,17 +152,7 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         log.info("Initializing MainController");
 
-        // Get services from ServiceLocator
-        serviceLocator = ServiceLocator.getInstance();
-        rootDirectoryService = serviceLocator.getRootDirectoryService();
-        profileService = serviceLocator.getProfileService();
-        midiFileService = serviceLocator.getMidiFileService();
-        configureRootDirectoryUseCase = serviceLocator.getConfigureRootDirectoryUseCase();
-        browseMidiFilesUseCase = serviceLocator.getBrowseMidiFilesUseCase();
-        createProfileUseCase = serviceLocator.getCreateProfileUseCase();
-        analyzeMidiFileUseCase = serviceLocator.getAnalyzeMidiFileUseCase();
-        playMidiFileUseCase = serviceLocator.getPlayMidiFileUseCase();
-        settingsRepository = serviceLocator.getSettingsRepository();
+        // Services are injected by Spring via @Autowired
 
         // Initialize UI components
         initializeFileBrowser();
@@ -361,10 +364,10 @@ public class MainController implements Initializable {
 
     @FXML
     private void onToggleTestMode() {
-        boolean currentMode = serviceLocator.isTestMode();
+        boolean currentMode = testModeService.isTestModeEnabled();
         boolean newMode = !currentMode;
 
-        serviceLocator.setTestMode(newMode);
+        testModeService.setTestModeEnabled(newMode);
         updateTestModeIndicator();
 
         if (newMode) {
@@ -386,13 +389,12 @@ public class MainController implements Initializable {
             testModeWindow = new TestModeWindow();
             testModeWindow.setOnClose(() -> {
                 // When user closes the window, disable test mode
-                serviceLocator.setTestMode(false);
+                testModeService.setTestModeEnabled(false);
                 updateTestModeIndicator();
                 updateStatus("Test mode disabled - keystrokes will be sent");
             });
 
             // Set up key press callback
-            TestModeService testModeService = serviceLocator.getTestModeService();
             testModeService.setOnKeyPressed(keyDescription -> {
                 if (testModeWindow != null) {
                     testModeWindow.logKeyPress(keyDescription);
@@ -412,11 +414,11 @@ public class MainController implements Initializable {
 
     private void openSettingsDialog() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "/com/burstmeman/midi2keys/ui/views/settings-view.fxml"));
-            Parent root = loader.load();
+            SpringFXMLLoader loader = new SpringFXMLLoader(Application.getApplicationContext());
+            Object[] controllerHolder = new Object[1];
+            Parent root = loader.load("/com/burstmeman/midi2keys/ui/views/settings-view.fxml", controllerHolder);
 
-            SettingsController controller = loader.getController();
+            SettingsController controller = (SettingsController) controllerHolder[0];
 
             Stage dialogStage = createDialogStage("Settings", root, 600, 700);
             controller.setStage(dialogStage);
@@ -437,11 +439,11 @@ public class MainController implements Initializable {
 
     private void openProfileManagerDialog() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "/com/burstmeman/midi2keys/ui/views/profile-manager-view.fxml"));
-            Parent root = loader.load();
+            SpringFXMLLoader loader = new SpringFXMLLoader(Application.getApplicationContext());
+            Object[] controllerHolder = new Object[1];
+            Parent root = loader.load("/com/burstmeman/midi2keys/ui/views/profile-manager-view.fxml", controllerHolder);
 
-            ProfileManagerController controller = loader.getController();
+            ProfileManagerController controller = (ProfileManagerController) controllerHolder[0];
 
             Stage dialogStage = createDialogStage("Profile Manager", root, 700, 500);
             controller.setStage(dialogStage);
@@ -869,7 +871,7 @@ public class MainController implements Initializable {
             }
 
             // If test mode is enabled, log the key press to the test mode window
-            if (serviceLocator.isTestMode()) {
+            if (testModeService.isTestModeEnabled()) {
                 // Ensure test mode window is initialized and shown
                 if (testModeWindow == null || !testModeWindow.isShowing()) {
                     openTestModeWindow();
@@ -904,7 +906,7 @@ public class MainController implements Initializable {
 
     private void updateTestModeIndicator() {
         if (testModeIndicator != null) {
-            boolean testMode = serviceLocator.isTestMode();
+            boolean testMode = testModeService.isTestModeEnabled();
             testModeIndicator.setVisible(testMode);
             testModeIndicator.setManaged(testMode);
         }

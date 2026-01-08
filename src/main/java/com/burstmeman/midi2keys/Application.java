@@ -2,14 +2,15 @@ package com.burstmeman.midi2keys;
 
 import com.burstmeman.midi2keys.application.services.GlobalHotkeyService;
 import com.burstmeman.midi2keys.infrastructure.config.ApplicationConfig;
-import com.burstmeman.midi2keys.infrastructure.di.ServiceLocator;
-import javafx.fxml.FXMLLoader;
+import com.burstmeman.midi2keys.infrastructure.di.ShutdownHandler;
+import com.burstmeman.midi2keys.infrastructure.di.SpringConfig;
+import com.burstmeman.midi2keys.ui.SpringFXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,7 +28,8 @@ public class Application extends javafx.application.Application {
     private static final int DEFAULT_WIDTH = 1280;
     private static final int DEFAULT_HEIGHT = 800;
 
-    private ServiceLocator serviceLocator;
+    private static ApplicationContext applicationContext;
+    private GlobalHotkeyService globalHotkeyService;
 
     /**
      * Static method to launch the application.
@@ -47,9 +49,11 @@ public class Application extends javafx.application.Application {
         // Ensure application directories exist
         ensureDirectoriesExist();
 
-        // Initialize service locator (which handles database and all services)
-        serviceLocator = ServiceLocator.getInstance();
-        serviceLocator.initialize();
+        // Initialize Spring application context with explicit configuration class
+        // This avoids component scanning which can fail with class version issues
+        applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
+        
+        log.info("Spring application context initialized");
     }
 
     @Override
@@ -66,8 +70,8 @@ public class Application extends javafx.application.Application {
         ApplicationConfig.applyJMetroTheme(scene);
 
         // Register global hotkeys with the scene
-        GlobalHotkeyService hotkeyService = serviceLocator.getGlobalHotkeyService();
-        hotkeyService.registerWithScene(scene);
+        globalHotkeyService = applicationContext.getBean(GlobalHotkeyService.class);
+        globalHotkeyService.registerWithScene(scene);
 
         // Show the stage
         primaryStage.show();
@@ -79,13 +83,31 @@ public class Application extends javafx.application.Application {
     public void stop() throws Exception {
         log.info("Shutting down Midi2Keys application...");
 
-        // Shutdown all services
-        if (serviceLocator != null) {
-            serviceLocator.shutdown();
+        // Explicitly shutdown all services before closing Spring context
+        if (applicationContext != null) {
+            try {
+                ShutdownHandler shutdownHandler = applicationContext.getBean(ShutdownHandler.class);
+                shutdownHandler.shutdown();
+            } catch (Exception e) {
+                log.error("Error during explicit shutdown", e);
+            }
+
+            // Close Spring context
+            if (applicationContext instanceof AnnotationConfigApplicationContext) {
+                ((AnnotationConfigApplicationContext) applicationContext).close();
+            }
         }
 
         super.stop();
         log.info("Midi2Keys application stopped");
+    }
+
+    /**
+     * Gets the Spring application context.
+     * Used by controllers to access beans.
+     */
+    public static ApplicationContext getApplicationContext() {
+        return applicationContext;
     }
 
     /**
@@ -113,10 +135,8 @@ public class Application extends javafx.application.Application {
      * @throws IOException if FXML cannot be loaded
      */
     private Parent loadMainView() throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/burstmeman/midi2keys/ui/views/main-view.fxml")
-        );
-        return loader.load();
+        SpringFXMLLoader loader = new SpringFXMLLoader(applicationContext);
+        return loader.load("/com/burstmeman/midi2keys/ui/views/main-view.fxml");
     }
 
     /**

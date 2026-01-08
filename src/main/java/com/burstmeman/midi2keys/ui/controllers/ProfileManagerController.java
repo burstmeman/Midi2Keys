@@ -14,8 +14,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.List;
@@ -27,6 +28,8 @@ import java.util.function.Consumer;
  * Lists, creates, edits, and deletes profiles.
  */
 @Slf4j
+@Component
+@Scope("prototype")
 public class ProfileManagerController implements Initializable {
 
     private final ObservableList<Profile> profiles = FXCollections.observableArrayList();
@@ -54,7 +57,9 @@ public class ProfileManagerController implements Initializable {
     private Label createdAtLabel;
     @FXML
     private Label updatedAtLabel;
+    @Autowired
     private CreateProfileUseCase createProfileUseCase;
+    @Autowired
     private ProfileService profileService;
     private Consumer<Profile> onProfileSelected;
     private Stage stage;

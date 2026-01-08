@@ -15,8 +15,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.net.URL;
@@ -29,7 +30,14 @@ import java.util.function.Consumer;
  * Manages root directory configuration and application settings.
  */
 @Slf4j
+@Component
+@Scope("prototype")
 public class SettingsController implements Initializable {
+
+    @Autowired
+    private ConfigureRootDirectoryUseCase configureRootDirectoryUseCase;
+    @Autowired
+    private SettingsRepository settingsRepository;
 
     @FXML
     private VBox rootDirectoriesContainer;
@@ -48,8 +56,6 @@ public class SettingsController implements Initializable {
     @FXML
     private Button closeButton;
 
-    private ConfigureRootDirectoryUseCase configureRootDirectoryUseCase;
-    private SettingsRepository settingsRepository;
     private Consumer<Void> onSettingsChanged;
     private Stage stage;
 
@@ -71,11 +77,11 @@ public class SettingsController implements Initializable {
 
     /**
      * Injects dependencies into the controller.
+     * Kept for backward compatibility, but dependencies are now injected via @Autowired.
      */
     public void setDependencies(ConfigureRootDirectoryUseCase configureRootDirectoryUseCase,
                                 SettingsRepository settingsRepository) {
-        this.configureRootDirectoryUseCase = configureRootDirectoryUseCase;
-        this.settingsRepository = settingsRepository;
+        // Dependencies are already injected via @Autowired, just load settings
         loadSettings();
     }
 
